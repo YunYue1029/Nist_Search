@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__
+venv
+nist_data
+mongodb_data
+.env

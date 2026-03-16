@@ -1,0 +1,23 @@
+services:
+  cve-mongodb:
+    image: mongo:latest
+    container_name: cve-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb_data:/data/db
+    restart: always
+
+  cve-api-service:
+    build: .
+    container_name: cve-api-service
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://cve-mongodb:27017/
+    depends_on:
+      - cve-mongodb
+    volumes:
+      - ./app:/app
+      - ./nist_data:/app/nist_data
+    restart: always
